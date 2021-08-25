@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAP Bank</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login_area">
+        <h1 class="text-center ">Welcome to TAP Bank <h1>
+        <div class="login_form">
+            <h4>Login</h4>
+            <input id="user-email" class="form-control" type="name" placeholder="Name">
+            <input id="user-password" class="form-control" type="password" placeholder="Password">
+            <button id="user_login" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+
+    <div id="transaction_area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h3>Deposit</h3>
+                    <h2>$ <span id="current_deposit">00</span></h2>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h3>Withdraw</h3>
+                    <h2>$ <span id="current_withdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h3>Balance</h3>
+                    <h2>$ <span id="current_balance">00</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="login_form">
+                    <h4>Deposit</h4>
+                    <input id="deposit_amount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <button class="btn btn-success" id="deposit">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="login_form">
+                    <h4>Withdraw</h4>
+                    <input id="withdraw_amount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <button class="btn btn-success" id="withdraw">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+      
+
+        document.getElementById('user_login').addEventListener('click', function () {
+
+        //get user email
+        const emailField = document.getElementById('user-email');
+        const userEmail = emailField.value;
+
+        //get user password
+        const passwordField = document.getElementById('user-password');
+        const userPassword = passwordField.value;
+
+        //check email & password
+        if (userEmail == 'Prince' && userPassword == 'legend') {
+            const loginArea = document.getElementById("login_area");
+            loginArea.style.display = "none";
+            const transactionArea = document.getElementById("transaction_area");
+            transactionArea.style.display = "block";
+        }
+    });
+
+        // Deposit button action settings
+        const deposit_btn = document.getElementById("deposit");
+        deposit_btn.addEventListener("click", function(){
+            const depositAmount = document.getElementById("deposit_amount").value;
+            const depositAmountNumber = parseFloat(depositAmount);
+
+
+            updateAccountInfo("current_deposit", depositAmountNumber);
+            updateAccountInfo("current_balance", depositAmountNumber);
+
+
+            document.getElementById("deposit_amount").value = "";
+
+            }
+        )
+        
+        function updateAccountInfo(number, depositAmountNumber){
+            const total = document.getElementById(number).innerText;
+            const totalNumber = parseFloat(total);
+            const totalFinal = totalNumber+depositAmountNumber;
+            document.getElementById(number).innerText = totalFinal;
+        }
+
+        // Withdraw button action settings
+
+        const withdraw_btn = document.getElementById("withdraw");
+        withdraw_btn.addEventListener("click", function(){
+            const withdrawAmount = document.getElementById("withdraw_amount").value;
+            const withdrawAmountNumber = parseFloat(withdrawAmount);
+
+            // First Way (using function) -->
+
+            updateAccountInfo("current_withdraw", withdrawAmountNumber);
+            updateAccountInfo("current_balance", -1*withdrawAmountNumber);
+
+            document.getElementById("withdraw_amount").value = "";
+
+            }
+
+        )
+
+    </script>
+
+</body>
+</html>
